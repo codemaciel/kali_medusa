@@ -10,4 +10,4 @@ Este repositório contém scripts de automação e wordlists customizadas para a
 ## 🚀 Como usar
 1. Clone o repositório:
    ```bash
-   git clone [https://github.com/seu-usuario/nome-do-repo.git](https://github.com/seu-usuario/nome-do-repo.git)
+   git clone [https://github.com/codemaciel/kali_medusa](https://github.com/codemaciel/kali_medusa.git)
